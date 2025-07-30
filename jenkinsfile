@@ -5,6 +5,7 @@ pipeline {
         SONAR_HOME = 'C:\\Users\\Administrator\\Documents\\tools\\sonar-scanner\\bin'
         REPO_NAME  = 'https://github.com/mahadevansk/html-sample-app-test.git'
         BRANCH_NAME = 'master'
+        SONAR_TOKEN = credentials('maha_sonar_day3_token')
     }
 
     stages {
@@ -41,7 +42,7 @@ pipeline {
                     -Dsonar.projectKey=Mahadev-Day3_git_Scan \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=http://13.203.151.240:9000 \
-                    -Dsonar.token=sqp_02e739f6bceb196e19f679e3524c4e91e5aff0b1
+                    -Dsonar.token=${SONAR_TOKEN}
                 """
             }
         }
