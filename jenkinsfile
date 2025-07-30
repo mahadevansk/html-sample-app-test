@@ -56,5 +56,24 @@ pipeline {
             }
             // using plugins to call sonarENV
         }
+        
+
+        // using docker plugin to build container image 
+        stage('building docker image'){
+            steps {
+                echo 'starting docker build process'
+                // to use docker plugin using script 
+                script {
+                    def imageName  = "Mahadev-iis-ltsc2022"
+                    def imageTag   = "Maha1"
+                    docker.build("${imageName}:${imageTag}",".")
+
+                }
+                // verify image build 
+                bat 'docker images   | findstr ashuwebapp'
+            }
+
+
+
     }
 }
