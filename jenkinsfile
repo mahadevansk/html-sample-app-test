@@ -16,6 +16,10 @@ pipeline {
              // bat or pwsh
              bat """
              sonar-scanner --version
+             echo Docker version
+             docker --version
+             echo -->Java--> 
+             java --version
              """
            
          }
