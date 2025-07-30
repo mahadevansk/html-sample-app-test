@@ -6,7 +6,7 @@ pipeline {
         REPO_NAME  = 'https://github.com/mahadevansk/html-sample-app-test.git'
         BRANCH_NAME = 'master'
         SONAR_TOKEN = credentials('maha_sonar_day3_token')
-        DOCKER_CREDS = credentials('MY_DOCKER_CRED')
+        DOCKER_CREDS = 'MY_DOCKER_CRED'
         SONAR_PROJECT_KEY =  'Mahadev-Day3_git_Scan'
         SONAR_SERVER_NAME = 'Ash-Sonar-Master' // name we have configured under jenkins global confir
     }
