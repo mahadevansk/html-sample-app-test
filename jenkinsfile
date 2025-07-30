@@ -64,7 +64,7 @@ pipeline {
                 echo 'starting docker build process'
                 // to use docker plugin using script 
                 script {
-                    def imageName  = "Mahadev-iis-ltsc2022"
+                    def imageName  = "mahadev_Day3-iis-ltsc2022"
                     def imageTag   = "maha1"
                     docker.build("${imageName}:${imageTag}",".")
 
