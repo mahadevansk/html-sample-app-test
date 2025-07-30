@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vulnerable Test Page</title>
+</head>
+<body>
+    <h1>Welcome to the Vulnerable App</h1>
+
+    <!-- 1. Cross-Site Scripting (XSS) -->
+    <form method="GET">
+        <label>Enter your name:</label>
+        <input type="text" name="user" />
+        <input type="submit" value="Submit" />
+    </form>
+    <p>Hello, <script>document.write(location.href.split("user=")[1]);</script></p>
+
+    <!-- 2. Insecure JavaScript eval() -->
+    <script>
+        var userInput = location.hash.substring(1); // e.g., #alert('Hacked')
+        eval(userInput); // Dangerous: executes arbitrary code
+    </script>
+
+    <!-- 3. Hardcoded credentials -->
+    <script>
+        var username = "admin";
+        var password = "admin123"; // Hardcoded password
+    </script>
+
+    <!-- 4. Insecure HTTP request -->
+    <script>
+        fetch("http://example.com/api/data") // Insecure: no HTTPS
+            .then(response => response.text())
+            .then(data => console.log(data));
+    </script>
+</body>
+</html>
