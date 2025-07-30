@@ -70,7 +70,7 @@ pipeline {
 
                 }
                 // verify image build 
-                bat 'docker images   | findstr ashuwebapp'
+                bat 'docker images   | findstr mahadev_day3-iis-ltsc2022'
             }
 
         }
