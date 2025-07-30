@@ -22,13 +22,30 @@ pipeline {
                 """
             }
         }
-        // git checkout 
+
+
+
+          // git checkout 
         stage('taking code of github repo'){
             steps {
                 echo 'clone repo to project'
                 git url: "${REPO_NAME}", branch: "${BRANCH_NAME}"
             }
         }
+        // doing sast with sonar-qube 
+        stage('SAST with sonar-scanner'){
+            steps {
+                echo 'wait for sonar-scanner to finish'
+                bat """
+                    sonar-scanner \
+                    -Dsonar.projectKey=Mahadev-Day3_git_Scan \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://13.203.151.240:9000 \
+                    -Dsonar.token=sqp_02e739f6bceb196e19f679e3524c4e91e5aff0b1
+                """
+            }
+        }
+     
      
     }
 }
