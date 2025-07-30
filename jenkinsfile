@@ -65,7 +65,7 @@ pipeline {
                 // to use docker plugin using script 
                 script {
                     def imageName  = "Mahadev-iis-ltsc2022"
-                    def imageTag   = "Maha1"
+                    def imageTag   = "maha1"
                     docker.build("${imageName}:${imageTag}",".")
 
                 }
