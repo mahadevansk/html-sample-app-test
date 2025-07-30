@@ -6,6 +6,7 @@ pipeline {
         REPO_NAME  = 'https://github.com/mahadevansk/html-sample-app-test.git'
         BRANCH_NAME = 'master'
         SONAR_TOKEN = credentials('maha_sonar_day3_token')
+        DOCKER_CREDS = credentials('MY_DOCKER_CRED')
         SONAR_PROJECT_KEY =  'Mahadev-Day3_git_Scan'
         SONAR_SERVER_NAME = 'Ash-Sonar-Master' // name we have configured under jenkins global confir
     }
@@ -64,7 +65,7 @@ pipeline {
                 echo 'starting docker build process'
                 // to use docker plugin using script 
                 script {
-                    def imageName  = "mahadev_day3-iis-ltsc2022"
+                    def imageName  = "docker.io/mahadevsk/mahadev_day3-iis-ltsc2022"
                     def imageTag   = "maha1"
                     docker.build("${imageName}:${imageTag}",".")
 
@@ -73,6 +74,25 @@ pipeline {
                 bat 'docker images   | findstr mahadev_day3-iis-ltsc2022'
             }
 
+        }
+
+                // pushing image  to dockerhub 
+        stage('Docker hub image push'){
+            steps{
+                echo 'pushing image to docker hub'
+                script {
+                    def imageName  = "docker.io/mahadevsk/mahadev_day3-iis-ltsc2022"
+                    def imageTag   = "maha1"
+                    def hubCred   = "${DOCKER_CREDS}"
+                    // calling jenkins pluing docker pipeline to push
+                    docker.withRegistry('https://registry.hub.docker.com',hubCred){
+                        docker.image(imageName + ":" + imageTag).push()
+                        // 
+
+                    }
+
+                }
+            }
         }
 
     }
