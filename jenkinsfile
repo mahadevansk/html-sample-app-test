@@ -73,7 +73,7 @@ pipeline {
                 bat 'docker images   | findstr ashuwebapp'
             }
 
-
+        }
 
     }
 }
