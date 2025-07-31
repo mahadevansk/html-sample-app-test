@@ -160,5 +160,18 @@ pipeline {
         }
         // Implment DAST 
 
+                // Implment DAST 
+        stage('using zap to do '){
+            // only given label agent can run this stage job 
+            agent {
+                label 'mahadev-linux'
+            }
+            steps {
+                echo 'using zap'
+                sh 'docker run -t --rm  ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://172.31.46.40:1234'
+            }
+
+        }
+
     }
 }
