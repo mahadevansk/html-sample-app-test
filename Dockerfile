@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/nanoserver:ltsc2022 
+FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2022
 # we are taking base image from microsoft windows server core with IIS
 LABEL name="Mahadev"
 LABEL email="sample@gmail.com"
