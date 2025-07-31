@@ -10,8 +10,8 @@ pipeline {
         SONAR_PROJECT_KEY =  'Mahadev-Day3_git_Scan'
         SONAR_SERVER_NAME = 'Ash-Sonar-Master' // name we have configured under jenkins global confir
         IMAGE_NAME = 'mahadevsk/mahadev_day4'
-        IMAGE_TAG = 'maha1'
         TRIVY_REPORT = 'trivy-maha-report.txt'
+        IMAGE_TAG =  "code${TAG_TIMESTAMP}-${BUILD_NUMBER}"
     
     }
 
@@ -134,7 +134,7 @@ pipeline {
                 echo 'pushing image to docker hub'
                 script {
                     def imageName  = "mahadevsk/mahadev_day4"
-                    def imageTag   = "maha2"
+                    def imageTag   = ${IMAGE_TAG}
                     def hubCred   = "${DOCKER_CREDS}"
                     // calling jenkins pluing docker pipeline to push
                     docker.withRegistry('https://registry.hub.docker.com',hubCred){
