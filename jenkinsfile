@@ -81,19 +81,37 @@ pipeline {
         }
 
         // Scanning with Trivy. 
-        stage('trivy scan'){
+        // stage('trivy scan'){
+        //     steps {
+        //         echo 'running scan'
+        //         bat """
+        //         trivy image  --severity HIGH,CRITICAL --format table -o report.txt mahadevsk/mahadev_day4:maha2
+        //         findstr /I "HIGH CRITICAL"  report.txt  >null
+
+        //         if %errorlevel% == 0 (
+        //         echo [ERROR] HIGH or ciritical found 
+        //         exit /b 1
+        //         )  
+        //         else (
+        //         echo no error found 
+        //         )
+        //         """
+        //     }
+        // }
+
+
+        stage('trivy scan') {
             steps {
-                echo 'running scan'
+                echo 'Running Trivy scan...'
                 bat """
-                trivy image  --severity HIGH,CRITICAL --format table -o report.txt mahadevsk/mahadev_day4:maha2
-                findstr /I "HIGH CRITICAL"  report.txt  >null
+                trivy image --severity HIGH,CRITICAL --format table -o report.txt mahadevsk/mahadev_day4:maha2
+                findstr /I "HIGH CRITICAL" report.txt >nul
 
                 if %errorlevel% == 0 (
-                echo [ERROR] HIGH or ciritical found 
-                exit /b 1
-                )  
-                else (
-                echo no error found 
+                    echo [ERROR] HIGH or CRITICAL vulnerabilities found
+                    exit /b 1
+                ) else (
+                    echo [INFO] No HIGH or CRITICAL vulnerabilities found
                 )
                 """
             }
