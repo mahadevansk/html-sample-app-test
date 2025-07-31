@@ -9,6 +9,10 @@ pipeline {
         DOCKER_CREDS = 'MY_DOCKER_CRED'
         SONAR_PROJECT_KEY =  'Mahadev-Day3_git_Scan'
         SONAR_SERVER_NAME = 'Ash-Sonar-Master' // name we have configured under jenkins global confir
+        IMAGE_NAME = 'mahadevsk/mahadev_day4'
+        IMAGE_TAG = 'maha1'
+        TRIVY_REPORT = "trivy-maha-report.txt"
+    
     }
 
     stages {
@@ -65,15 +69,34 @@ pipeline {
                 echo 'starting docker build process'
                 // to use docker plugin using script 
                 script {
-                    def imageName  = "docker.io/mahadevsk/mahadev_day4"
-                    def imageTag   = "maha2"
-                    docker.build("${imageName}:${imageTag}",".")
+                    // def imageName  = "mahadevsk/mahadev_day4"
+                    // def imageTag   = "maha2"
+                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}",".")
 
                 }
                 // verify image build 
                 bat 'docker images   | findstr mahadev_day4-iis-nano'
             }
 
+        }
+
+        // Scanning with Trivy. 
+        stage('trivy scan'){
+            steps {
+                echo 'running scan'
+                bat """
+                trivy image  --severity HIGH,CRITICAL --format table -o report.txt image:tag
+                findstr /I "HIGH CRITICAL"  report.txt  >null
+
+                if %errorlevel% == 0 (
+                echo [ERROR] HIGH or ciritical found 
+                exit /b 1
+                )  
+                else (
+                echo no error found 
+                )
+                """
+            }
         }
 
                 // pushing image  to dockerhub 
