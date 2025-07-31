@@ -85,7 +85,7 @@ pipeline {
             steps {
                 echo 'running scan'
                 bat """
-                trivy image  --severity HIGH,CRITICAL --format table -o report.txt image:tag
+                trivy image  --severity HIGH,CRITICAL --format table -o report.txt mahadevsk/mahadev_day4:maha2
                 findstr /I "HIGH CRITICAL"  report.txt  >null
 
                 if %errorlevel% == 0 (
