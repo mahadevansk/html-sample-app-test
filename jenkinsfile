@@ -11,7 +11,7 @@ pipeline {
         SONAR_SERVER_NAME = 'Ash-Sonar-Master' // name we have configured under jenkins global confir
         IMAGE_NAME = 'mahadevsk/mahadev_day4'
         IMAGE_TAG = 'maha1'
-        TRIVY_REPORT = 'trivy-maha-report.txt'
+       // TRIVY_REPORT = 'trivy-maha-report.txt'
     
     }
 
