@@ -81,7 +81,7 @@ pipeline {
             steps{
                 echo 'pushing image to docker hub'
                 script {
-                    def imageName  = "docker.io/mahadevsk/mahadev_day4"
+                    def imageName  = "mahadevsk/mahadev_day4"
                     def imageTag   = "maha2"
                     def hubCred   = "${DOCKER_CREDS}"
                     // calling jenkins pluing docker pipeline to push
