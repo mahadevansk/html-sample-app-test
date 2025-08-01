@@ -134,7 +134,7 @@ pipeline {
                 echo 'pushing image to docker hub'
                 script {
                     def imageName  = "mahadevsk/mahadev_day4"
-                    def imageTag   = ${IMAGE_TAG}
+                    def imageTag   = "${IMAGE_TAG}"
                     def hubCred   = "${DOCKER_CREDS}"
                     // calling jenkins pluing docker pipeline to push
                     docker.withRegistry('https://registry.hub.docker.com',hubCred){
